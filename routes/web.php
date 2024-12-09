@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/', function(){
-	redirect('/login');
+    return redirect('/login');
 });
 
 Route::middleware(['auth'])->group(function () {
