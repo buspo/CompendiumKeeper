@@ -12,10 +12,7 @@ class Character extends Model
 	
 	protected $fillable = [
         'user_id',
-        'name',
-        'class',
-        'level',
-        // Aggiungi altri campi necessari
+        'sheet',
     ];
 
     public function user()

@@ -1,59 +1,52 @@
-$('.stat').bind('input', function()
-    {
-      var inputName = $(this).attr('name')
-      var mod = parseInt($(this).val()) - 10
-      
-      if (mod % 2 == 0)
-        mod = mod / 2
-      else
-        mod = (mod - 1) / 2
-  
-      if (isNaN(mod))
-        mod = ""
-      else if (mod >= 0)
-        mod = "+" + mod
-  
-      var scoreName = inputName.slice(0, inputName.indexOf("score"))
-      var modName = scoreName + "mod"
-      
-      $("[name='" + modName + "']").val(mod)
-    })
+$('.stat').bind('input', function () {
+  var inputName = $(this).attr('name')
+  var mod = parseInt($(this).val()) - 10
 
-$('.statmod').bind('change', function()
-{
-  var name = $(this).attr('name')
-  name = "uses" + name.slice(0, name.indexOf('mod'))
-  
+  if (mod % 2 == 0)
+    mod = mod / 2
+  else
+    mod = (mod - 1) / 2
+
+  if (isNaN(mod))
+    mod = ""
+  else if (mod >= 0)
+    mod = "+" + mod
+
+  var scoreName = inputName.slice(0, inputName.indexOf("score"))
+  var modName = scoreName + "mod"
+
+  $("[name='" + modName + "']").val(mod)
 })
 
-$("[name='classlevel']").bind('input', function()
-  {
-    var classes = $(this).val()
-    var r = new RegExp(/\d+/g)
-    var total = 0
-    var result
-    while ((result = r.exec(classes)) != null)
-    {
-      var lvl = parseInt(result)
-      if (!isNaN(lvl))
-        total += lvl
-    }
-    var prof = 2
-    if (total > 0)
-    {
-      total -= 1
-      prof += Math.trunc(total/4)
-      prof = "+" + prof
-    }
-    else
-    {
-      prof = ""    
-    }
-    $("[name='proficiencybonus']").val(prof)
-  })
+$('.statmod').bind('change', function () {
+  var name = $(this).attr('name')
+  name = "uses" + name.slice(0, name.indexOf('mod'))
 
-function totalhd_clicked()
-{
+})
+
+$("[name='classlevel']").bind('input', function () {
+  var classes = $(this).val()
+  var r = new RegExp(/\d+/g)
+  var total = 0
+  dataType: dataType
+  while ((result = r.exec(classes)) != null) {
+    var lvl = parseInt(result)
+    if (!isNaN(lvl))
+      total += lvl
+  }
+  var prof = 2
+  if (total > 0) {
+    total -= 1
+    prof += Math.trunc(total / 4)
+    prof = "+" + prof
+  }
+  else {
+    prof = ""
+  }
+  $("[name='proficiencybonus']").val(prof)
+})
+
+function totalhd_clicked() {
   $("[name='remaininghd']").val($("[name='totalhd']").val())
 }
 
@@ -63,8 +56,7 @@ var rows_inventory = 2;
 var rows_attunements = 3;
 var rows_spells = 2;
 
-function save_character()
-{
+function download() {
   console.log("Saving character...")
 
   var filename = ".dnd";
@@ -96,104 +88,30 @@ function save_character()
   type = 'application/json'
 
   // Save JSON to file
-  var file = new Blob([data], {type: type});
+  var file = new Blob([data], { type: type });
   if (window.navigator.msSaveOrOpenBlob) // IE10+
-      window.navigator.msSaveOrOpenBlob(file, filename);
+    window.navigator.msSaveOrOpenBlob(file, filename);
   else { // Others
-      var a = document.createElement("a"),
-              url = URL.createObjectURL(file);
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(function() {
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);  
-      }, 0); 
+    var a = document.createElement("a"),
+      url = URL.createObjectURL(file);
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 0);
   }
 }
 
 // Protective autosave feature
-window.onbeforeunload = function(){
+window.onbeforeunload = function () {
   if ($("[name='autosave']").prop("checked") == true) {
     save_character();
   }
 }
-
-// Functions for reading character from disk
-function load_character(e) {
-
-  // Autosave character
-  if ($("[name='autosave']").prop("checked") == true) {
-    save_character();
-  }
-
-  // Load character
-  var file = e.target.files[0];
-  if (!file) {
-    return;
-  }
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    var contents = e.target.result;
-
-    // Set size of dynamic tables
-    var savedData = JSON.parse(contents);
-    
-    while (rows_attacks > parseInt(savedData.rows_attacks)) {
-      remove_last_row('attacktable');
-    }
-    while (rows_attacks < parseInt(savedData.rows_attacks)) {
-      add_attack();
-    }
-    
-    while (rows_attunements > parseInt(savedData.rows_attunements)) {
-      remove_last_row('attunementtable');
-    }
-    while (rows_attunements < parseInt(savedData.rows_attunements)) {
-      add_attunement();
-    }
-
-    while (rows_inventory > parseInt(savedData.rows_inventory)) {
-      remove_last_row('inventorytable');
-    }
-    while (rows_inventory < parseInt(savedData.rows_inventory)) {
-      add_inventory();
-    }
-
-    while (rows_spells > parseInt(savedData.rows_spells)) {
-      remove_last_row('spelltable');
-    }
-    while (rows_spells < parseInt(savedData.rows_spells)) {
-      add_spell();
-    }
-    
-    // Prepare form data for JSON format
-    const formId = "charsheet";
-    var url = location.href;
-    const formIdentifier = `${url} ${formId}`;
-    let form = document.querySelector(`#${formId}`);
-    let formElements = form.elements;
-
-    // Display file content
-    savedData = JSON.parse(contents); // get and parse the saved data from localStorage
-    for (const element of formElements) {
-      if (element.name in savedData) {
-        if (element.type == 'checkbox') {
-          var checked = (savedData[element.name] == 'checked');
-          $("[name='" + element.name + "']").prop("checked", checked)
-        } else {
-          element.value = savedData[element.name]; 
-        }
-      }
-    }
-  };
-  reader.readAsText(file);
-}
-document.getElementById('buttonload').addEventListener('change', load_character, false);
-
-function long_rest()
-{
+function long_rest() {
   console.log("Taking long rest...")
   /*
    *  To do on a long rest:
@@ -231,8 +149,7 @@ function long_rest()
   alert("Hit points, hit dice, and spell slots have been refreshed.\n\nPlease remember to reset Limited Use abilities, temporary hit points, and other effects as needed.")
 }
 
-function add_attack()
-{
+function add_attack() {
   var tableRef = document.getElementById('attacktable')
 
   var row = tableRef.insertRow(tableRef.rows.length)
@@ -251,8 +168,7 @@ function add_attack()
   $("[name='rows_attacks']").val(rows_attacks);
 }
 
-function add_spell()
-{
+function add_spell() {
   var tableRef = document.getElementById('spelltable')
 
   var row = tableRef.insertRow(tableRef.rows.length)
@@ -283,8 +199,7 @@ function add_spell()
   $("[name='rows_spells']").val(rows_spells);
 }
 
-function add_inventory()
-{
+function add_inventory() {
   var tableRef = document.getElementById('inventorytable')
 
   var row = tableRef.insertRow(tableRef.rows.length)
@@ -307,8 +222,7 @@ function add_inventory()
   $("[name='rows_inventory']").val(rows_inventory);
 }
 
-function add_attunement()
-{
+function add_attunement() {
   var tableRef = document.getElementById('attunementtable')
 
   var row = tableRef.insertRow(tableRef.rows.length)
@@ -321,13 +235,12 @@ function add_attunement()
   $("[name='rows_attunements']").val(rows_attunements);
 }
 
-function remove_last_row(tableId)
-{
+function remove_last_row(tableId) {
   var tableRef = document.getElementById(tableId);
   var rowCount = tableRef.rows.length;
   tableRef.deleteRow(rowCount - 1);
 
-  switch(tableId) {
+  switch (tableId) {
     case 'attacktable':
       rows_attacks -= 1;
       if (rows_attacks < 0) {
@@ -359,22 +272,21 @@ function remove_last_row(tableId)
   $("[name='rows_spells']").val(rows_spells);
 }
 
-function calc_carry_weight()
-{
+function calc_carry_weight() {
   var total = 0;
   var table = document.getElementById("inventorytable");
   var trs = table.getElementsByTagName('tr');
-  for (var i=0; i < trs.length; i++) {
-      var tds = trs[i].getElementsByTagName('td');
+  for (var i = 0; i < trs.length; i++) {
+    var tds = trs[i].getElementsByTagName('td');
 
-      var count_str = tds[2].getElementsByTagName('input')[0].value;
-      var weight_str = tds[3].getElementsByTagName('input')[0].value;
+    var count_str = tds[2].getElementsByTagName('input')[0].value;
+    var weight_str = tds[3].getElementsByTagName('input')[0].value;
 
-      var count = (isNaN(parseFloat(count_str)) ? 0 : parseFloat(count_str))
-      var weight = (isNaN(parseFloat(weight_str)) ? 0 : parseFloat(weight_str))
+    var count = (isNaN(parseFloat(count_str)) ? 0 : parseFloat(count_str))
+    var weight = (isNaN(parseFloat(weight_str)) ? 0 : parseFloat(weight_str))
 
-      console.log(count + " * " + weight + " = " + (count * weight));
-      total += count * weight;
+    console.log(count + " * " + weight + " = " + (count * weight));
+    total += count * weight;
   }
   document.getElementById("weightcarried").value = parseInt(total + 0.5);
 }

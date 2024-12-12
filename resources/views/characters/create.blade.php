@@ -8,7 +8,6 @@
   <header>
     <section>
         <button name="buttonsave" type="button" onclick="save_character()" style="width:100px;margin-bottom:5px;margin-right:30px;">Save Character</button>
-        <button name="buttonrest" type="button" onclick="long_rest()" style="width:100px;,margin-bottom:5px;margin-left:30px;">Long Rest</button>
         <label for="autosave" style="text-transform:Capitalize;font-weight:bold;padding:0px 10px;">Autosave?</label><input name="autosave" id="autosave" type="checkbox" />
     </section>
   </header>
@@ -830,60 +829,6 @@
 @endsection
 @section('script')
 <script>
-$(document).ready(function(){
-  var contents = JSON.parse(`{!! $sheet !!}`);
-
-  // Set size of dynamic tables
-  var savedData = JSON.parse(contents);
-
-  while (rows_attacks > parseInt(savedData.rows_attacks)) {
-    remove_last_row('attacktable');
-  }
-  while (rows_attacks < parseInt(savedData.rows_attacks)) {
-    add_attack();
-  }
-
-  while (rows_attunements > parseInt(savedData.rows_attunements)) {
-    remove_last_row('attunementtable');
-  }
-  while (rows_attunements < parseInt(savedData.rows_attunements)) {
-    add_attunement();
-  }
-
-  while (rows_inventory > parseInt(savedData.rows_inventory)) {
-    remove_last_row('inventorytable');
-  }
-  while (rows_inventory < parseInt(savedData.rows_inventory)) {
-    add_inventory();
-  }
-
-  while (rows_spells > parseInt(savedData.rows_spells)) {
-    remove_last_row('spelltable');
-  }
-  while (rows_spells < parseInt(savedData.rows_spells)) {
-    add_spell();
-  }
-
-  // Prepare form data for JSON format
-  const formId = "charsheet";
-  var url = location.href;
-  const formIdentifier = `${url} ${formId}`;
-  let form = document.querySelector(`#${formId}`);
-  let formElements = form.elements;
-
-  // Display file content
-  savedData = JSON.parse(contents); // get and parse the saved data from localStorage
-  for (const element of formElements) {
-    if (element.name in savedData) {
-      if (element.type == 'checkbox') {
-        var checked = (savedData[element.name] == 'checked');
-        $("[name='" + element.name + "']").prop("checked", checked)
-      } else {
-        element.value = savedData[element.name];
-      }
-    }
-  }
-});
 function save_character() {
   console.log("Saving character...")
 

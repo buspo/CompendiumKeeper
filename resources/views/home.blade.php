@@ -20,7 +20,7 @@
                     <div class="mt-4">
                         <h3>I tuoi Personaggi</h3>
                         <p>Puoi gestire i tuoi personaggi qui:</p>
-                        <a href="{{ route('characters') }}" class="btn btn-primary">Apri Personaggi</a>
+                        <a href="{{ route('characters.index') }}" class="btn btn-primary">Apri Personaggi</a>
                     </div>
                 </div>
             </div>

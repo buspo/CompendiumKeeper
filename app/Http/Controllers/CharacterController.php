@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCharacterRequest;
-use App\Http\Requests\UpdateCharacterRequest;
 use App\Models\Character;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CharacterController extends Controller
 {
@@ -28,22 +29,18 @@ class CharacterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCharacterRequest $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'class' => 'required|string|max:255',
-            'level' => 'required|integer',
+            'sheet' => 'required|json',
         ]);
+        $input = $request->all();
+        $input['user_id'] = Auth::user()->id;
 
-        $character = new Character();
-        $character->user_id = Auth::id(); // Associa il personaggio all'utente autenticato
-        $character->name = $request->name;
-        $character->class = $request->class;
-        $character->level = $request->level;
-        $character->save();
+        // Crea il personaggio senza salvare il file
+        $character = Character::create($input);
 
-        return redirect()->route('characters.index')->with('success', 'Character created successfully.');
+        return response()->json(['message' => 'Personaggio creato con successo.']);
     }
 
     /**
@@ -59,15 +56,27 @@ class CharacterController extends Controller
      */
     public function edit(Character $character)
     {
-        //
+        return view('characters.edit', ['sheet' => $character->sheet, 'id' => $character->id]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCharacterRequest $request, Character $character)
+    public function update(Request $request, Character $character)
     {
-        //
+        $request->validate([
+            'sheet' => 'required|json',
+        ]);
+        $input = $request->all();
+
+        if ($character->user_id !== Auth::user()->id) {
+            abort(403); // Accesso negato
+        }
+
+        // Aggiorna il record del personaggio con il nome del file
+        $character->update(['sheet' => $input['sheet']]);
+
+        return response()->json(['message' => 'Personaggio aggiornato con successo.']);
     }
 
     /**
@@ -75,6 +84,14 @@ class CharacterController extends Controller
      */
     public function destroy(Character $character)
     {
-        //
+        if ($character->user_id !== Auth::user()->id) {
+            abort(403);
+        }
+
+        // Elimina il file dal filesystem
+        Storage::delete('private/characters/' . $character->id);
+        $character->delete();
+
+        return redirect()->route('characters.index')->with('success', 'Personaggio eliminato con successo.');
     }
 }

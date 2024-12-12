@@ -34,7 +34,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container mt-3">
         @yield('content')
     </div>
 

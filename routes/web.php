@@ -8,11 +8,8 @@ Route::get('/', function(){
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/characters', [App\Http\Controllers\CharacterController::class, 'index'])->name('characters.index');
-    Route::get('/characters/create', [App\Http\Controllers\CharacterController::class, 'create'])->name('characters.create');
-    Route::post('/characters', [App\Http\Controllers\CharacterController::class, 'store'])->name('characters.store');
-    // Aggiungi altre rotte per edit, update e delete
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+    Route::resource('characters', App\Http\Controllers\CharacterController::class)->except('destroy');
+    Route::get('characters/{character}/delete', [\App\Http\Controllers\CharacterController::class, 'destroy'])->name('characters.destroy');
 });
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

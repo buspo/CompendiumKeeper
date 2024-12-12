@@ -12,13 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('characters', function (Blueprint $table) {
-            $table->id();
-			$table->foreignId('user_id')->constrained()->onDelete('cascade'); // Collega il personaggio all'utente
-            $table->string('name');
-            $table->string('class');
-            $table->integer('level');
-            // Aggiungi altri campi necessari per il personaggio
-            $table->timestamps();
+            $table->id(); // ID del personaggio
+            $table->json('sheet'); // Nome del file associato al personaggio
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // ID dell'utente, con vincolo di chiave esterna
+            $table->timestamps(); // Timestamp per created_at e updated_at
         });
     }
 
