@@ -831,7 +831,7 @@
 @section('script')
 <script>
 $(document).ready(function(){
-  var contents = JSON.parse(`{!! $sheet !!}`);
+  var contents = [].concat(@json($sheet));
 
   // Set size of dynamic tables
   var savedData = JSON.parse(contents);
@@ -914,14 +914,14 @@ function save_character() {
   }
   data = JSON.stringify(data[formIdentifier], null, 2)
   $.ajax({
-    type: "POST",
-    url: "/characters",
+    type: "PUT",
+    url: "/characters/{{ $id }}",
     data: { 
       "_token": "{{ csrf_token() }}",
       "sheet": data 
     },
     success: function (data) {
-      location.replace("/characters")
+      alert("Salvataggio avvenuto correttamente");
     }
   });
 }
