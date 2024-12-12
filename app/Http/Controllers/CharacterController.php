@@ -15,6 +15,7 @@ class CharacterController extends Controller
     public function index()
     {
         $characters = Auth::user()->characters; // Ottieni i personaggi dell'utente autenticato
+        //dd(compact('characters'));
         return view('characters.index', compact('characters'));
     }
 
@@ -33,6 +34,7 @@ class CharacterController extends Controller
     {
         $request->validate([
             'sheet' => 'required|json',
+            'charname' => 'nullable|string',
         ]);
         $input = $request->all();
         $input['user_id'] = Auth::user()->id;
@@ -40,7 +42,7 @@ class CharacterController extends Controller
         // Crea il personaggio senza salvare il file
         $character = Character::create($input);
 
-        return response()->json(['message' => 'Personaggio creato con successo.']);
+        return response()->json(['message' => 'Personaggio creato con successo.', 'id' => $character->id]);
     }
 
     /**
@@ -66,17 +68,17 @@ class CharacterController extends Controller
     {
         $request->validate([
             'sheet' => 'required|json',
+            'charname' => 'nullable|string',
         ]);
         $input = $request->all();
-
         if ($character->user_id !== Auth::user()->id) {
             abort(403); // Accesso negato
         }
 
         // Aggiorna il record del personaggio con il nome del file
-        $character->update(['sheet' => $input['sheet']]);
+        $character->update($input);
 
-        return response()->json(['message' => 'Personaggio aggiornato con successo.']);
+        return response()->json(['message' => 'Scheda personaggio salvata con successo.']);
     }
 
     /**

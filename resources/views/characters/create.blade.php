@@ -863,10 +863,12 @@ function save_character() {
     url: "/characters",
     data: { 
       "_token": "{{ csrf_token() }}",
-      "sheet": data 
+      "sheet": data,
+      "charname": document.getElementById('charname').value
     },
     success: function (data) {
-      location.replace("/characters")
+      alert(data["message"]);
+      location.href = "/characters/"+data["id"]+"/edit";
     }
   });
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('characters', function (Blueprint $table) {
             $table->id(); // ID del personaggio
             $table->json('sheet'); // Nome del file associato al personaggio
+            $table->string('charname')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // ID dell'utente, con vincolo di chiave esterna
             $table->timestamps(); // Timestamp per created_at e updated_at
         });

@@ -918,10 +918,11 @@ function save_character() {
     url: "/characters/{{ $id }}",
     data: { 
       "_token": "{{ csrf_token() }}",
-      "sheet": data 
+      "sheet": data,
+      "charname": document.getElementById('charname').value
     },
     success: function (data) {
-      alert("Salvataggio avvenuto correttamente");
+      alert(data["message"]);
     }
   });
 }

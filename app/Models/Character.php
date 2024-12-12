@@ -13,6 +13,7 @@ class Character extends Model
 	protected $fillable = [
         'user_id',
         'sheet',
+        'charname',
     ];
 
     public function user()
