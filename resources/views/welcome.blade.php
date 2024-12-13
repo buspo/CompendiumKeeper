@@ -34,7 +34,6 @@
             <div class="card shadow-sm mb-4">
                 <div class="card-header bg-success text-white">{{ __('Credits') }}</div>
                 <div class="card-body">
-                    <h5 class="card-title">Credits</h5>
                     <p>This character sheet was created using a template shared by various Reddit users. Special thanks to:</p>
                     <ul>
                         <li>u/BackFromOtterSpace</li>
