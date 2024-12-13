@@ -10,7 +10,7 @@
     <div class="container">
         @yield('content') <!-- Qui verrà inserito il contenuto delle altre view -->
     </div>
-    <footer class="footer" style="position: fixed; bottom: 0; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.8); color: gray; text-align: center; padding: 10px;">
+    <footer class="footer" style="bottom: 0; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.8); color: gray; text-align: center; padding: 10px;">
     This card was created using a template shared by various users on Reddit. Special thanks to u/BackFromOtterSpace, u/nevertras, and u/ConDar15.<br>
     Source: <a href="https://www.reddit.com/r/DnD/comments/fvxsgj/5e_html_character_sheet_for_5e_with_basic/">post on reddit</a>
     </footer>

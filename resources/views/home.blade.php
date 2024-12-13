@@ -37,8 +37,7 @@
                         <li>u/ConDar15</li>
                     </ul>
                     <p>If you wish to make and/or distribute your revisions, I only ask that you maintain the attribution, including all users who have previously contributed to this project. Hope you enjoy the character sheet!</p>
-                    <p>This card was created using a template shared by various users on Reddit. Special thanks to u/BackFromOtterSpace, u/nevertras, and u/ConDar15.<br>
-                    Source: <a href="https://www.reddit.com/r/DnD/comments/fvxsgj/5e_html_character_sheet_for_5e_with_basic/">post on reddit</a></p>                 
+                    <p>Source: <a href="https://www.reddit.com/r/DnD/comments/fvxsgj/5e_html_character_sheet_for_5e_with_basic/">post on reddit</a></p>                 
                 </section>
                 </div>
             </div>
