@@ -52,10 +52,9 @@ class CharacterController extends Controller
     public function show(Character $character)
     {
         $jsonContent = $character->sheet;
-
-        /*if (! is_string($jsonContent)) {
-            $jsonContent = json_encode($character->sheet, JSON_PRETTY_PRINT);
-        }*/
+        if ($character->user_id !== Auth::user()->id) {
+            abort(403); // Accesso negato
+        }
 
         // Crea nome file con timestamp
         $filename = 'character sheet '.($character->charname ?? 'personaggio').'.json';
@@ -74,6 +73,10 @@ class CharacterController extends Controller
      */
     public function edit(Character $character)
     {
+        if ($character->user_id !== Auth::user()->id) {
+            abort(403); // Accesso negato
+        }
+
         return view('characters.edit', ['sheet' => $character->sheet, 'id' => $character->id]);
     }
 

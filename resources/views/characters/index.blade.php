@@ -3,10 +3,10 @@
 @section('content')
 
 <div class="container">
-    <h1 class="my-4">Personaggi</h1>
+    <h1 class="my-4">Characters</h1>
 
     <div class="mb-3">
-        <a href="{{ route('characters.create') }}" class="btn btn-primary">Crea Personaggio</a>
+        <a href="{{ route('characters.create') }}" class="btn btn-primary">Create Character</a>
     </div>
 
     <div id="message"></div>
@@ -15,17 +15,17 @@
         @foreach($characters as $character)
             <div class="list-group-item d-flex justify-content-between align-items-center">
                 <div>
-                    <h5 class="mb-1">{{ $character->charname ?? "Senza nome" }}</h5>
-                    <small>Ultima modifica: {{ $character->updated_at->format('d/m/Y H:i') }}</small>
+                    <h5 class="mb-1">{{ $character->charname ?? "Unnamed" }}</h5>
+                    <small>Last modified: {{ $character->updated_at->format('d/m/Y H:i') }}</small>
                 </div>
                 <div>
-                    <a href="{{ route('characters.show', $character) }}" class="btn btn-info btn-sm">Scarica</a>
-                    <a href="{{ route('characters.edit', $character) }}" class="btn btn-warning btn-sm">Modifica</a>
+                    <a href="{{ route('characters.show', $character) }}" class="btn btn-info btn-sm">Download</a>
+                    <a href="{{ route('characters.edit', $character) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{ route('characters.destroy', $character) }}" 
                         method="DELETE" 
                         style="display:inline;"
-                        onsubmit="return confirm('Sei sicuro di voler eliminare questo personaggio?');">
-                        <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                        onsubmit="return confirm('Are you sure you want to delete this character?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                     </form>
                 </div>
             </div>
@@ -34,7 +34,7 @@
 
     @if($characters->isEmpty())
         <div class="alert alert-warning mt-4" role="alert">
-            Non hai ancora creato alcun personaggio.
+            You haven't created any characters yet.
         </div>
     @endif
 </div>

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Gestione Personaggi</title>
+    <title>Character management</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm"> <!-- Cambiato da navbar-light a navbar-dark e bg-light a bg-primary -->
-    <a class="navbar-brand" href="{{ url('/') }}">Gestione Personaggi</a>
+    <a class="navbar-brand" href="{{ url('/') }}">Character management</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,7 +19,7 @@
                     <a class="nav-link" href="{{ route('login') }}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">Registrati</a>
+                    <a class="nav-link" href="{{ route('register') }}">Register</a>
                 </li>
             @else
                 <li class="nav-item">
