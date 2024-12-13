@@ -7,9 +7,10 @@
 <form class="charsheet" id="charsheet" enctype="multipart/form-data">
   <header>
     <section>
-        <button name="buttonsave" type="button" onclick="save_character()" style="width:100px;margin-bottom:5px;margin-right:30px;">Save Character</button>
-        <button name="buttonrest" type="button" onclick="long_rest()" style="width:100px;,margin-bottom:5px;margin-left:30px;">Long Rest</button>
-        <label for="autosave" style="text-transform:Capitalize;font-weight:bold;padding:0px 10px;">Autosave?</label><input name="autosave" id="autosave" type="checkbox" />
+        <button name="buttonsave" type="button" onClick="save_character()" style="width:100px;margin-bottom:5px;margin-right:245px;">Salva personaggio</button>
+        <button name="buttonrest" type="button" onClick="long_rest()" style="width:100px;,margin-bottom:5px;margin-right:245px;">Long Rest</button>
+        <button id="buttonclose" name="buttonclose" type="button" onClick="if(confirm('Confermi di voler uscire senza salvare?')){location.href = '/characters';}" style="width:100px;margin-bottom:5px;">Chiudi</button>
+        <!--<label for="autosave" style="text-transform:Capitalize;font-weight:bold;padding:0px 10px;">Autosave?</label><input name="autosave" id="autosave" type="checkbox" />-->
     </section>
   </header>
   <header>

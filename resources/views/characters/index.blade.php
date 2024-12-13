@@ -21,9 +21,10 @@
                 <div>
                     <a href="{{ route('characters.show', $character) }}" class="btn btn-info btn-sm">Scarica</a>
                     <a href="{{ route('characters.edit', $character) }}" class="btn btn-warning btn-sm">Modifica</a>
-                    <form action="{{ route('characters.destroy', $character) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
+                    <form action="{{ route('characters.destroy', $character) }}" 
+                        method="DELETE" 
+                        style="display:inline;"
+                        onsubmit="return confirm('Sei sicuro di voler eliminare questo personaggio?');">
                         <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
                     </form>
                 </div>

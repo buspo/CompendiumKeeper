@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CharacterController extends Controller
@@ -15,6 +15,7 @@ class CharacterController extends Controller
     public function index()
     {
         $characters = Auth::user()->characters; // Ottieni i personaggi dell'utente autenticato
+
         //dd(compact('characters'));
         return view('characters.index', compact('characters'));
     }
@@ -50,7 +51,22 @@ class CharacterController extends Controller
      */
     public function show(Character $character)
     {
-        //
+        $jsonContent = $character->sheet;
+
+        /*if (! is_string($jsonContent)) {
+            $jsonContent = json_encode($character->sheet, JSON_PRETTY_PRINT);
+        }*/
+
+        // Crea nome file con timestamp
+        $filename = 'character sheet '.($character->charname ?? 'personaggio').'.json';
+
+        // Prepara la response per il download
+        return response()->streamDownload(function () use ($jsonContent) {
+            echo $jsonContent;
+        }, $filename, [
+            'Content-Type' => 'application/json',
+            'Content-Disposition' => 'attachment; filename='.$filename,
+        ]);
     }
 
     /**
@@ -91,7 +107,6 @@ class CharacterController extends Controller
         }
 
         // Elimina il file dal filesystem
-        Storage::delete('private/characters/' . $character->id);
         $character->delete();
 
         return redirect()->route('characters.index')->with('success', 'Personaggio eliminato con successo.');
