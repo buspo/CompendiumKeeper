@@ -6,6 +6,9 @@ use App\Models\Character;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Spatie\LaravelPdf\Facades\Pdf;
+use function Spatie\LaravelPdf\Support\pdf;
+use App;
 
 class CharacterController extends Controller
 {
@@ -113,5 +116,34 @@ class CharacterController extends Controller
         $character->delete();
 
         return redirect()->route('characters.index')->with('success', 'Personaggio eliminato con successo.');
+    }
+
+    public function downloadPdf(Request $request, Character $character)
+    {
+        //dd($character);
+        $pdf = \PDF::loadView('characters.pdf', [
+            'sheet' => $character->sheet,
+            ]);
+        $pdf->setOption('enable-javascript', true);
+        $pdf->setOption('javascript-delay', 1000);
+        $pdf->setOption('enable-smart-shrinking', true);
+        $pdf->setOption('no-stop-slow-scripts', true);
+        return $pdf->download($character->charname.'.pdf');
+
+        return app('snappy.pdf.wrapper')->setOption('javascript-delay', 5000)
+           ->loadHTML(view('characters.pdf', [
+            'sheet' => $character->sheet,
+            ])->render())->download("test" . '.pdf');
+
+        $pdf = Pdf::view('characters.pdf', [
+            'sheet' => $character->sheet,
+        ])->format('a0');
+
+
+        //$pdf = App::make('dompdf.wrapper');
+        //$pdf->loadHTML($test);
+
+        return $pdf->download();
+        return $pdf->download($character->name.'.pdf');
     }
 }

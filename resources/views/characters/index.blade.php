@@ -2,11 +2,13 @@
 
 @section('content')
 
-<div class="container">
+<div class="">
     <h1 class="my-4">Characters</h1>
 
-    <div class="mb-3">
-        <a href="{{ route('characters.create') }}" class="btn btn-primary">Create Character</a>
+    <div class="d-flex">
+        <div class="mb-3">
+            <a href="{{ route('characters.create') }}" class="btn btn-primary">Create Character</a>
+        </div>
     </div>
 
     <div id="message"></div>
@@ -19,10 +21,10 @@
                     <small>Last modified: {{ $character->updated_at->format('d/m/Y H:i') }}</small>
                 </div>
                 <div>
-                    <a href="{{ route('characters.show', $character) }}" class="btn btn-info btn-sm">Download</a>
+                    <a href="{{ route('characters.downloadPdf', $character) }}" class="btn btn-info btn-sm">Download</a>
                     <a href="{{ route('characters.edit', $character) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('characters.destroy', $character) }}" 
-                        method="DELETE" 
+                    <form action="{{ route('characters.destroy', $character) }}"
+                        method="DELETE"
                         style="display:inline;"
                         onsubmit="return confirm('Are you sure you want to delete this character?');">
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
