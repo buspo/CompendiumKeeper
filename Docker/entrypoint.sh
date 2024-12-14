@@ -5,7 +5,7 @@
 /scripts/init-container.sh
 
 # Assicurati di essere nella workdir corretta
-cd /home/public/dnd
+cd /home/public/CompendiumKeeper
 
 # Comandi da eseguire ad ogni avvio del container
 echo "Avvio del container..."

@@ -888,13 +888,6 @@ $(document).ready(function(){
 function save_character() {
   console.log("Saving character...")
 
-  var filename = ".dnd";
-  if (document.getElementById('charname').value == "") {
-    filename = "CharacterSheet" + filename;
-  } else {
-    filename = document.getElementById('charname').value + filename;
-  }
-
   // Prepare form data for JSON format
   const formId = "charsheet";
   var url = location.href;

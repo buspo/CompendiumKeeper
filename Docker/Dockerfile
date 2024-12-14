@@ -10,7 +10,7 @@ RUN apt-get install npm -y
 
 # Creazione directory per gli script
 RUN mkdir -p /scripts
-RUN mkdir -p /home/public/dnd
+RUN mkdir -p /home/public/CompendiumKeeper
 
 # Copia degli script nella directory dedicata
 COPY init-container.sh /scripts/
@@ -18,8 +18,8 @@ COPY entrypoint.sh /scripts/
 RUN chmod +x /scripts/init-container.sh /scripts/entrypoint.sh
 
 # Imposta la workdir
-WORKDIR /home/public/dnd
-VOLUME /home/public/dnd
+WORKDIR /home/public/CompendiumKeeper
+VOLUME /home/public/CompendiumKeeper
 
 EXPOSE 8002
 

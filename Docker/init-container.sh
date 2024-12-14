@@ -6,7 +6,7 @@ INIT_FLAG="/scripts/.initialized"
 
 if [ ! -f "$INIT_FLAG" ]; then
     echo "Eseguo inizializzazione primo avvio..."
-    cd /home/public/dnd
+    cd /home/public/CompendiumKeeper
     
     composer install
     php artisan key:generate

@@ -7,9 +7,9 @@
             <div class="card shadow-sm mb-4">
                 <div class="card-header bg-primary text-white">{{ __('Welcome to Character Management') }}</div>
                 <div class="card-body">
-                    <h5 class="card-title">Manage Your D&D Characters</h5>
+                    <h5 class="card-title">Manage Your 5e Characters</h5>
                     <p class="card-text">
-                        This application allows you to create, edit, and manage your characters for Dungeons & Dragons sessions. You can keep track of stats, spells, inventory, and much more.
+                        This application allows you to create, edit, and manage your characters for rpg sessions. You can keep track of stats, spells, inventory, and much more.
                     </p>
                     <div class="text-center">
                         <a href="{{ route('characters.create') }}" class="btn btn-warning">Create a New Character</a>
