@@ -6,8 +6,10 @@ INIT_FLAG="/scripts/.initialized"
 
 if [ ! -f "$INIT_FLAG" ]; then
     echo "Eseguo inizializzazione primo avvio..."
-    cd /home/public/CompendiumKeeper
+    cd /var/www/CompendiumKeeper
     
+    chown -R www-data:www-data /var/www/CompendiumKeeper/storage
+    chown -R www-data:www-data /var/www/CompendiumKeeper/bootstrap/cache
     composer install
     php artisan key:generate
     #php artisan config:cache
