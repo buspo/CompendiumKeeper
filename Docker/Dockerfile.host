@@ -31,4 +31,4 @@ VOLUME /var/www/CompendiumKeeper
 EXPOSE 80
 
 # Imposta entrypoint.sh come punto di ingresso
-ENTRYPOINT ["/scripts/entrypoint.sh"]
+ENTRYPOINT ["/scripts/entrypoint_nginx.sh"]
