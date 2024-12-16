@@ -2,7 +2,7 @@
 # entrypoint.sh - Script eseguito ad ogni avvio
 
 # Esegui lo script di inizializzazione
-/scripts/init-container.sh
+/scripts/init-container_nginx.sh
 
 # Assicurati di essere nella workdir corretta
 cd /var/www/CompendiumKeeper

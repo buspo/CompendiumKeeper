@@ -13,9 +13,9 @@ RUN mkdir -p /scripts
 RUN mkdir -p /home/public/CompendiumKeeper
 
 # Copia degli script nella directory dedicata
-COPY init-container.sh /scripts/
+COPY init-container_dev.sh /scripts/
 COPY entrypoint_dev.sh /scripts/
-RUN chmod +x /scripts/init-container.sh /scripts/entrypoint_dev.sh
+RUN chmod +x /scripts/init-container_dev.sh /scripts/entrypoint_dev.sh
 
 # Imposta la workdir
 WORKDIR /home/public/CompendiumKeeper

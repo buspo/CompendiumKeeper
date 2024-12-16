@@ -14,9 +14,9 @@ RUN mkdir -p /scripts
 RUN mkdir -p /var/www/CompendiumKeeper
 
 # Copia degli script nella directory dedicata
-COPY init-container.sh /scripts/
-COPY entrypoint.sh /scripts/
-RUN chmod +x /scripts/init-container.sh /scripts/entrypoint.sh
+COPY init-container_nginx.sh /scripts/
+COPY entrypoint_nginx.sh /scripts/
+RUN chmod +x /scripts/init-container_nginx.sh /scripts/entrypoint_nginx.sh
 
 # Set di nginx
 # Set ningix configuration
