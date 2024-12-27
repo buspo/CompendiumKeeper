@@ -1,0 +1,48 @@
+body {
+    background-color: #f0f8ff;
+    /* Azzurro chiaro */
+}
+
+.card {
+    background-color: #003366;
+    /* Blu scuro */
+    border: 2px solid #FFD700;
+    /* Bordo dorato */
+    color: white;
+    /* Testo bianco */
+}
+
+.card-header {
+    background-color: #00509e;
+    /* Blu medio */
+    color: white;
+    /* Testo bianco */
+}
+
+.btn-warning {
+    background-color: #ffcc00;
+    /* Giallo brillante */
+    color: #003366;
+    /* Blu scuro per il testo */
+}
+
+.btn-info {
+    background-color: #00bfff;
+    /* Blu chiaro */
+    color: white;
+    /* Testo bianco */
+}
+
+.alert {
+    background-color: #ffcccb;
+    /* Rosso chiaro per gli avvisi */
+    color: #d8000c;
+    /* Rosso scuro per il testo */
+}
+
+.footer {
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Bianco semi-trasparente */
+    color: gray;
+    /* Testo grigio */
+}

@@ -4,11 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <!-- Sezione con sfondo scuro per il logo -->
-            <div class="text-center mb-4" style="background-color: #343a40; padding: 20px; border-radius: 8px;">
+            <div class="text-center mb-4" style="background-color: #003366; padding: 20px; border-radius: 8px;">
                 <img src="{{ asset('CompendiumKeeper.png') }}" alt="Logo" class="img-fluid" style="max-width: 50%; height: auto;">
             </div>
-            <div class="card shadow-sm mb-4">
+            <div class="card shadow-sm mb-4" style="background-color: #fefcff;">
                 <div class="card-header bg-info text-white">{{ __('Access') }}</div>
                 <div class="card-body text-center">
                     @guest
@@ -23,7 +22,7 @@
                     @endguest
                 </div>
             </div>
-            <div class="card shadow-sm mb-4">
+            <div class="card shadow-sm mb-4" style="background-color: #fefcff;">
                 <div class="card-header bg-success text-white">{{ __('Credits') }}</div>
                 <div class="card-body">
                     <p>This character sheet was created using a template shared by various Reddit users. Special thanks to:</p>

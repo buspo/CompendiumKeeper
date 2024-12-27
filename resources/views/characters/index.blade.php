@@ -3,19 +3,19 @@
 @section('content')
 
 <div class="container">
-    <h1 class="my-4">Characters</h1>
+    <h1 class="my-4" style="color: #003366;">Characters</h1>
 
     <div class="mb-3">
-        <a href="{{ route('characters.create') }}" class="btn btn-primary">Create Character</a>
+        <a href="{{ route('characters.create') }}" class="btn btn-warning">Create Character</a>
     </div>
 
     <div id="message"></div>
 
     <div class="list-group">
         @foreach($characters as $character)
-            <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #fefcff;">
                 <div>
-                    <h5 class="mb-1">{{ $character->charname ?? "Unnamed" }}</h5>
+                    <h5 class="mb-1" style="color: #003366;">{{ $character->charname ?? "Unnamed" }}</h5>
                     <small>Last modified: {{ $character->updated_at->format('d/m/Y H:i') }}</small>
                 </div>
                 <div>
@@ -23,7 +23,8 @@
                     <a href="{{ route('characters.edit', $character) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{ route('characters.destroy', $character) }}" 
                         method="DELETE" 
-                        style="display:inline;"
+                        style="display ```blade
+                        :inline;"
                         onsubmit="return confirm('Are you sure you want to delete this character?');">
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                     </form>
