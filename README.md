@@ -10,9 +10,6 @@ This project is built using Laravel, incorporating both the default Laravel temp
 
 ## Licenses and Credits
 
-### Laravel Framework
-This project utilizes Laravel Framework, which is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
 ### 5E Character Sheet Template
 The character sheet template used in this project was sourced from the Reddit community. To comply with proper attribution and usage rights:
 
