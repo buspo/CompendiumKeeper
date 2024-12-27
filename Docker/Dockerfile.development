@@ -21,7 +21,7 @@ RUN chmod +x /scripts/init-container_dev.sh /scripts/entrypoint_dev.sh
 WORKDIR /home/public/CompendiumKeeper
 VOLUME /home/public/CompendiumKeeper
 
-EXPOSE 8002
+EXPOSE 80
 
 # Imposta entrypoint.sh come punto di ingresso
 ENTRYPOINT ["/scripts/entrypoint_dev.sh"]
