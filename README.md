@@ -1,7 +1,7 @@
 # CompendiumKeeper
 
 ## Overview
-This project is built using Laravel, incorporating both the default Laravel template and a custom D&D 5E character sheet template from the Reddit community.
+This project is built using Laravel, incorporating both the default Laravel template and a custom character sheet template from the Reddit community.
 
 ## Technologies Used
 - Laravel Framework
