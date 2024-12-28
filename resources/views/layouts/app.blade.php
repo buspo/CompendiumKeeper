@@ -9,7 +9,7 @@
 <body>
 <nav class="navbar navbar-expand-lg" style="background-color: #003366;">
     <a class="navbar-brand" href="{{ url('/') }}">
-        <img src="{{ asset('CompendiumKeeper.png') }}" alt="Logo" 
+        <img src="{{ asset('CompendiumKeeper_extend.png') }}" alt="Logo" 
              style="height: 40px; width: auto;" 
              class="logo-small" >
     </a>
