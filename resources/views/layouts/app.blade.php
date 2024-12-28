@@ -10,8 +10,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #003366;">
     <a class="navbar-brand" href="{{ url('/') }}">
         <img src="{{ asset('CompendiumKeeper_extend.png') }}" alt="Logo" 
-             style="height: 40px; width: auto;" 
-             class="logo-small" >
+             style="max-height: 40px; width: auto;" 
+             class="img-fluid" > 
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
