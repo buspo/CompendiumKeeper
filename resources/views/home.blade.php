@@ -11,7 +11,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    {{ __('You are logged in!') }}
+                    {{ __('Welcome '.auth()->user()->name.'. You are logged in!') }}
+                    <div class="text-center">
+                        <a href="{{ route('users.edit') }}" class="btn btn-info">Manage account</a>
+                    </div>
+
                 </div>
             </div>
             <div class="card shadow-sm mb-4" style="background-color: #fefcff;">

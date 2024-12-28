@@ -14,7 +14,6 @@
                         <p>If you are not registered yet, you can do so here:</p>
                         <div class="text-center">
                             <a href="{{ route('register') }}" class="btn btn-warning">Register</a>
-                            <a href="{{ route('login') }}" class="btn btn-info">Login</a>
                         </div>
                     @else
                         <p>You are already logged in as {{ Auth::user()->name }}.</p>
