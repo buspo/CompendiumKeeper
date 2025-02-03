@@ -6,13 +6,14 @@ INIT_FLAG="/scripts/.initialized"
 
 if [ ! -f "$INIT_FLAG" ]; then
     echo "Eseguo inizializzazione primo avvio..."
+    chown -R $USER:$USER /home/public/CompendiumKeeper/
+
     cd /home/public/CompendiumKeeper
-    
     composer install
     php artisan key:generate
     #php artisan config:cache
     echo "Migrazione del db"
-    php artisan migrate
+    php artisan migrate:fresh
     echo "Inizializzazione installazione pachetti nmp"
     npm install --save-dev vite laravel-vite-plugin
     npm install --save-dev @vitejs/plugin-vue

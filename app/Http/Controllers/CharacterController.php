@@ -114,4 +114,23 @@ class CharacterController extends Controller
 
         return redirect()->route('characters.index')->with('success', 'Personaggio eliminato con successo.');
     }
+
+    /**
+     * Create character from json file.
+     */
+    public function upload(Request $request)
+    {
+        $request->validate([
+            'sheet_file' => 'required|file|mimes:json|max:2048'
+        ]);
+        $input = $request->all();
+        $input["sheet"] = file_get_contents($input["sheet_file"]->getRealPath());
+        $input["user_id"] = Auth::user()->id;
+        $input["charname"] = json_decode($input["sheet"])->charname;
+
+        // Aggiorna il record del personaggio con il nome del file
+        $character = Character::create($input);
+
+        return response()->json(['message' => 'Scheda personaggio creata con successo.']);
+    }
 }
