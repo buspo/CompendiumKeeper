@@ -24,8 +24,7 @@
                     <h5 class="card-title">Manage Your Game</h5>
                     <p class="card-text">Access all features to manage your characters and adventures.</p>
                     <div class="text-center">
-                        <a href="{{ route('characters.create') }}" class="btn btn-warning">Create New Character</a>
-                        <a href="{{ route('characters.index') }}" class="btn btn-info">View Characters</a>
+                        <a href="{{ route('characters.index') }}" class="btn btn-warning">View Characters</a>
                     </div>
                 </div>
             </div>
