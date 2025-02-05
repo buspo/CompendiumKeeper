@@ -49,14 +49,14 @@
                     <small>Last modified: {{ $character->updated_at->format('d/m/Y H:i') }}</small>
                 </div>
                 <div class="d-flex justify-content-end mb-3">
-                    <a href="{{ route('characters.show', $character) }}" class="btn btn-info btn-sm mr-1">Download</a>
-                    <a href="{{ route('characters.edit', $character) }}" class="btn btn-warning btn-sm mr-1">Edit</a>
+                    <a href="{{ route('characters.show', $character) }}" class="btn btn-info btn-sm mr-1 material-icons">download</a>
+                    <a href="{{ route('characters.edit', $character) }}" class="btn btn-warning btn-sm mr-1 material-icons">edit</a>
                     <form action="{{ route('characters.destroy', $character) }}" 
                         method="DELETE" 
                         style="display ```blade
                         :inline;"
                         onsubmit="return confirm('Are you sure you want to delete this character?');">
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm material-icons">delete</button>
                     </form>
                 </div>
             </div>
