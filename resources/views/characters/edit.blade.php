@@ -5,11 +5,12 @@
 @section('content')
 <!-- partial:index.partial.html -->
 <form class="charsheet" id="charsheet" enctype="multipart/form-data">
+<input type="hidden" id="ch_id" value="{{$id}}"/>
   <header>
     <section>
         <button name="buttonsave" type="button" onClick="save_character()" style="width:100px;margin-bottom:5px;margin-right:245px;">Save character</button>
         <button name="buttonrest" type="button" onClick="long_rest()" style="width:100px;,margin-bottom:5px;margin-right:245px;">Long Rest</button>
-        <button id="buttonclose" name="buttonclose" type="button" onClick="if(confirm('Are you sure you want to exit without saving?')){location.href = '/characters';}" style="width:100px;margin-bottom:5px;">Close</button>
+        <button id="buttonclose" name="buttonclose" type="button" onClick="closeSheet();" style="width:100px;margin-bottom:5px;">Close</button>
         <!--<label for="autosave" style="text-transform:Capitalize;font-weight:bold;padding:0px 10px;">Autosave?</label><input name="autosave" id="autosave" type="checkbox" />-->
     </section>
   </header>
@@ -834,56 +835,8 @@
 $(document).ready(function(){
   var contents = [].concat(@json($sheet));
 
-  // Set size of dynamic tables
-  var savedData = JSON.parse(contents);
-
-  while (rows_attacks > parseInt(savedData.rows_attacks)) {
-    remove_last_row('attacktable');
-  }
-  while (rows_attacks < parseInt(savedData.rows_attacks)) {
-    add_attack();
-  }
-
-  while (rows_attunements > parseInt(savedData.rows_attunements)) {
-    remove_last_row('attunementtable');
-  }
-  while (rows_attunements < parseInt(savedData.rows_attunements)) {
-    add_attunement();
-  }
-
-  while (rows_inventory > parseInt(savedData.rows_inventory)) {
-    remove_last_row('inventorytable');
-  }
-  while (rows_inventory < parseInt(savedData.rows_inventory)) {
-    add_inventory();
-  }
-
-  while (rows_spells > parseInt(savedData.rows_spells)) {
-    remove_last_row('spelltable');
-  }
-  while (rows_spells < parseInt(savedData.rows_spells)) {
-    add_spell();
-  }
-
-  // Prepare form data for JSON format
-  const formId = "charsheet";
-  var url = location.href;
-  const formIdentifier = `${url} ${formId}`;
-  let form = document.querySelector(`#${formId}`);
-  let formElements = form.elements;
-
-  // Display file content
-  savedData = JSON.parse(contents); // get and parse the saved data from localStorage
-  for (const element of formElements) {
-    if (element.name in savedData) {
-      if (element.type == 'checkbox') {
-        var checked = (savedData[element.name] == 'checked');
-        $("[name='" + element.name + "']").prop("checked", checked)
-      } else {
-        element.value = savedData[element.name];
-      }
-    }
-  }
+  loadData(contents);
+  restoreStorage();
 });
 function save_character() {
   console.log("Saving character...")
@@ -916,6 +869,7 @@ function save_character() {
       "charname": document.getElementById('charname').value
     },
     success: function (data) {
+      localStorage.removeItem('dnd_sheet_backup');
       alert(data["message"]);
     }
   });

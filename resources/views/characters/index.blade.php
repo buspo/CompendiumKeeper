@@ -37,7 +37,6 @@
             </div>
         </div>
     </div>
-</div>
 
     <div id="message"></div>
 
@@ -68,6 +67,8 @@
             You haven't created any characters yet.
         </div>
     @endif
+
+</div>
 
 @endsection
 

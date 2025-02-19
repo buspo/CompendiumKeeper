@@ -31,6 +31,9 @@
                     <a class="nav-link" href="{{ route('home') }}" style="color: #ffffff;">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('users.edit') }}" style="color: #ffffff;">Setting</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #ffffff;">Logout</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf

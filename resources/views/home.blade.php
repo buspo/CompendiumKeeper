@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow-sm mb-4" style="background-color: #fefcff;">
+            <!--<div class="card shadow-sm mb-4" style="background-color: #fefcff;">
                 <div class="card-header bg-primary text-white">{{ __('Dashboard') }}</div>
                 <div class="card-body">
                     @if (session('status'))
@@ -17,7 +17,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div>-->
             <div class="card shadow-sm mb-4" style="background-color: #fefcff;">
                 <div class="card-header bg-info text-white">{{ __('Characters') }}</div>
                 <div class="card-body">

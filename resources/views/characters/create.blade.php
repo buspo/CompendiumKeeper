@@ -5,10 +5,11 @@
 @section('content')
 <!-- partial:index.partial.html -->
 <form class="charsheet" id="charsheet" enctype="multipart/form-data">
+<input type="hidden" id="ch_id" value=""/>
   <header>
     <section>
         <button name="buttonsave" type="button" onclick="save_character()" style="width:100px;margin-bottom:5px;margin-right:595px;">Save character</button>
-        <button id="buttonclose" name="buttonclose" type="button" onClick="if(confirm('Are you sure you want to exit without saving?')){location.href = '/characters';}" style="width:100px;margin-bottom:5px;">Close</button>
+        <button id="buttonclose" name="buttonclose" type="button" onClick="closeSheet();" style="width:100px;margin-bottom:5px;">Close</button>
         <!--<label for="autosave" style="text-transform:Capitalize;font-weight:bold;padding:0px 10px;">Autosave?</label><input name="autosave" id="autosave" type="checkbox" />-->
     </section>
   </header>
@@ -830,6 +831,9 @@
 @endsection
 @section('script')
 <script>
+$(document).ready(function(){
+  restoreStorage();
+});
 function save_character() {
   console.log("Saving character...")
 
@@ -861,6 +865,7 @@ function save_character() {
       "charname": document.getElementById('charname').value
     },
     success: function (data) {
+      localStorage.removeItem('dnd_sheet_backup');
       alert(data["message"]);
       location.href = "/characters/"+data["id"]+"/edit";
     }
