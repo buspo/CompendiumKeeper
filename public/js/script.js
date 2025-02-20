@@ -332,8 +332,8 @@ function restoreStorage(data) {
 }
 
 function closeSheet() {
-  if (confirm('Are you sure you want to exit without saving?')) {
-    clearInterval(interval);
+  if (confirm('Are you sure you want to leave? If you have unsaved changes you will lose them')) {
+    //clearInterval(interval);
     localStorage.removeItem("dnd_sheet_backup_" + $("#ch_id").val());
     ask = false;
     location.href = '/characters';
