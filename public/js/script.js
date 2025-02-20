@@ -1,4 +1,5 @@
 var interval;
+var ask = true;
 
 $('.stat').bind('input', function () {
   var inputName = $(this).attr('name')
@@ -30,7 +31,7 @@ $("[name='classlevel']").bind('input', function () {
   var classes = $(this).val()
   var r = new RegExp(/\d+/g)
   var total = 0
-  dataType: dataType
+  //dataType: dataType
   while ((result = r.exec(classes)) != null) {
     var lvl = parseInt(result)
     if (!isNaN(lvl))
@@ -275,8 +276,8 @@ function loadData(data) {
   const formId = "charsheet";
   var url = location.href;
   const formIdentifier = `${url} ${formId}`;
-  let form = document.querySelector(`#${formId}`);
-  let formElements = form.elements;
+  var form = document.querySelector(`#${formId}`);
+  var formElements = form.elements;
 
   // Display file content
   savedData = JSON.parse(data); // get and parse the saved data from localStorage
@@ -297,10 +298,10 @@ function autoSave() {
   const formId = "charsheet";
   var url = location.href;
   const formIdentifier = `${url} ${formId}`;
-  let form = document.querySelector(`#${formId}`);
-  let formElements = form.elements;
+  var form = document.querySelector(`#${formId}`);
+  var formElements = form.elements;
 
-  let data = { [formIdentifier]: {} };
+  var data = { [formIdentifier]: {} };
   for (const element of formElements) {
     if (element.name.length > 0) {
       if (element.type == 'checkbox') {
@@ -316,9 +317,9 @@ function autoSave() {
 }
 
 // Recupera i dati quando la pagina viene ricaricata
-function restoreStorage() {
+function restoreStorage(data) {
   const savedData = localStorage.getItem("dnd_sheet_backup_" + $("#ch_id").val());
-  if (savedData) {
+  if (savedData && saveData != data) {
     // Chiedi all'utente se vuole recuperare i dati non salvati
     if (confirm('Sono stati trovati dati non salvati. Vuoi recuperarli?')) {
       loadData(savedData);
@@ -331,9 +332,14 @@ function closeSheet() {
   if (confirm('Are you sure you want to exit without saving?')) {
     clearInterval(interval);
     localStorage.removeItem("dnd_sheet_backup_" + $("#ch_id").val());
+    ask = false;
     location.href = '/characters';
   }
 }
+
+$(window).on('beforeunload', function () {
+  if (ask) { return ('Are you sure you want to leave?'); }
+});
 
 $(document).ready(function () {
   interval = setInterval(autoSave, 10000);

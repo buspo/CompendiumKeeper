@@ -836,7 +836,7 @@ $(document).ready(function(){
   var contents = [].concat(@json($sheet));
 
   loadData(contents);
-  restoreStorage();
+  restoreStorage(contents);
 });
 function save_character() {
   console.log("Saving character...")
