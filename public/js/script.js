@@ -319,7 +319,10 @@ function autoSave() {
 // Recupera i dati quando la pagina viene ricaricata
 function restoreStorage(data) {
   const savedData = localStorage.getItem("dnd_sheet_backup_" + $("#ch_id").val());
-  if (savedData && saveData != data) {
+  console.log("entro");
+  console.log(savedData);
+  console.log(savedData != data);
+  if (savedData && savedData != data) {
     // Chiedi all'utente se vuole recuperare i dati non salvati
     if (confirm('Sono stati trovati dati non salvati. Vuoi recuperarli?')) {
       loadData(savedData);
