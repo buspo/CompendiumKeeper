@@ -16,7 +16,7 @@
                             <a href="{{ route('register') }}" class="btn btn-warning">Register</a>
                         </div>
                     @else
-                        <p>You are already logged in as {{ Auth::user()->name }}.</p>
+                        <p>You are already logged in as {{ Auth::user()->username }}.</p>
                         <a href="{{ route('home') }}" class="btn btn-info">Home</a>
                     @endguest
                 </div>

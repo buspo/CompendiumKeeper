@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
@@ -54,13 +54,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Character::class); // Relazione 1:N con i personaggi
     }
 
-    public function sendEmailVerificationNotification()
-{
-    $this->notify(new VerifyEmail);
-}
+    public function shared() {
+        return $this->belongsToMany(Character::class, 'users_characters', 'user_id', 'character_id');
+    }
 
-public function sendPasswordResetNotification($token)
-{
-    $this->notify(new ResetPassword($token));
-}
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
+    }
 }

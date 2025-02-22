@@ -19,7 +19,7 @@ class ResetPassword extends ResetPasswordBase
                     'token' => $this->token,
                     'email' => $notifiable->getEmailForPasswordReset(),
                 ], false)),
-                'name' => $notifiable->name
+                'name' => $notifiable->username
             ]);
     }
 }

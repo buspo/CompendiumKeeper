@@ -16,7 +16,7 @@ class VerifyEmail extends VerifyEmailBase
             ->subject('Verifica il tuo indirizzo email - Compendium Keeper')
             ->view('emails.verify', [
                 'url' => $this->verificationUrl($notifiable),
-                'name' => $notifiable->name
+                'name' => $notifiable->username
             ]);
     }
 }

@@ -25,8 +25,8 @@
                 @method('PUT')
 
                 <div class="form-group mb-3">
-                    <label for="name" style="color: #003366;">Name</label>
-                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', auth()->user()->name) }}" required>
+                    <label for="username" style="color: #003366;">Username</label>
+                    <input type="text" name="username" id="username" class="form-control" value="{{ old('username', auth()->user()->username) }}" required>
                 </div>
 
                 <div class="form-group mb-3">

@@ -11,7 +11,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    {{ __('Welcome '.auth()->user()->name.'. You are logged in!') }}
+                    {{ __('Welcome '.auth()->user()->username.'. You are logged in!') }}
                     <div class="text-center">
                         <a href="{{ route('users.edit') }}" class="btn btn-info">Manage account</a>
                     </div>

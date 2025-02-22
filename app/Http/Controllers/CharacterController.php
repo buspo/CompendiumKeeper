@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
+use App\Models\User;
+use App\Models\UserCharacter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -15,9 +17,9 @@ class CharacterController extends Controller
     public function index()
     {
         $characters = Auth::user()->characters; // Ottieni i personaggi dell'utente autenticato
-
-        //dd(compact('characters'));
-        return view('characters.index', compact('characters'));
+        $sheet = $characters->merge(Auth::user()->shared);
+        //dd(compact('sheet'));
+        return view('characters.index', compact('sheet'));
     }
 
     /**
@@ -86,7 +88,7 @@ class CharacterController extends Controller
     public function update(Request $request, Character $character)
     {
         $request->validate([
-            'sheet' => 'required|json',
+            'user' => 'required|json',
             'charname' => 'nullable|string',
         ]);
         $input = $request->all();
@@ -132,5 +134,66 @@ class CharacterController extends Controller
         $character = Character::create($input);
 
         return response()->json(['message' => 'Scheda personaggio creata con successo.']);
+    }
+
+    public function view(Character $character)
+    {
+        if ($character->user_id !== Auth::user()->id && !$character->users->contains(Auth::user())) {
+            abort(403); // Accesso negato
+        }
+        return view('characters.view', ['sheet' => $character->sheet, 'id' => $character->id]);
+    }
+
+    public function share(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|max:255|exists:users',
+            'character_id' => 'required|exists:characters,id'
+        ]);
+        $existingUser = User::firstWhere('username', $request->username);
+        $character = Character::find($request->character_id);
+        
+        if ($character->user_id !== Auth::user()->id){
+            abort(403); // Accesso negato
+        }
+        if ($existingUser == Auth::user){
+            response()->json(['error' => 'Non puoi condividere schede con te stesso']);
+        }
+
+        UserCharacter::create([
+            'user_id' => $existingUser->id,
+            'character_id' => $character->id
+        ]);
+        return response()->json(['message' => 'Scheda personaggio condivisa con successo.']);
+    }
+
+    public function getSharedUsers(Character $character)
+    {
+        if ($character->user_id !== Auth::user()->id) {
+            abort(403);
+        }
+    
+        $sharedUsers = $character->users()->select('username', 'users.id')->get();
+        return response()->json($sharedUsers);
+    }
+
+    public function removeShare(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'character_id' => 'required|exists:characters,id'
+        ]);
+    
+        $character = Character::find($request->character_id);
+    
+        if ($character->user_id !== Auth::user()->id) {
+            abort(403);
+        }
+    
+        UserCharacter::where('user_id', $request->user_id)
+            ->where('character_id', $request->character_id)
+            ->delete();
+        
+        return response()->json(['message' => 'Condivisione rimossa con successo']);
     }
 }
