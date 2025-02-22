@@ -88,7 +88,7 @@ class CharacterController extends Controller
     public function update(Request $request, Character $character)
     {
         $request->validate([
-            'user' => 'required|json',
+            'sheet' => 'required|json',
             'charname' => 'nullable|string',
         ]);
         $input = $request->all();
