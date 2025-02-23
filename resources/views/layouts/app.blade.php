@@ -6,13 +6,36 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Compendium Keeper</title>
+    <style>
+        body {
+            background-color: #f8f9fa; /* Colore di sfondo */
+        }
+        .navbar {
+            background-color: #0056b3; /* Colore navbar */
+        }
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        .btn-success {
+            background-color: #28a745; /* Colore pulsante success */
+        }
+        .btn-info {
+            background-color: #007bff; /* Colore pulsante info */
+        }
+        .alert-success {
+            background-color: #d4edda; /* Colore alert success */
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #cce5ff; /* Colore alert danger */
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #003366;">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
     <a class="navbar-brand" href="{{ url('/') }}">
-        <img src="{{ asset('CompendiumKeeper_extend.png') }}" alt="Logo" 
-             style="max-height: 40px; width: auto;" 
-             class="img-fluid" > 
+        <img src="{{ asset('CompendiumKeeper_extend.png') }}" alt="Logo" class="img-fluid"> 
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

@@ -3,11 +3,11 @@
 @section('content')
 
 <div class="container">
-    <h1 class="my-4" style="color: #003366;">Characters</h1>
+    <h1 class="my-4" style="color: #0056b3;">Characters</h1> <!-- Cambiato il colore -->
 
     <div class="mb-3">
-        <a href="{{ route('characters.create') }}" class="btn btn-warning mr-2 mb-1">Create New Character with Template</a>
-        <button class="btn btn-secondary mb-1" type="button" data-toggle="modal" data-target="#uploadModal">Upload Character from JSON</button>
+        <a href="{{ route('characters.create') }}" class="btn btn-success mr-2 mb-1">Create New Character with Template</a> <!-- Cambiato il colore -->
+        <button class="btn btn-info mb-1" type="button" data-toggle="modal" data-target="#uploadModal">Upload Character from JSON</button> <!-- Cambiato il colore -->
     </div>
 
     <div id="message"></div>
@@ -16,21 +16,20 @@
         @foreach($sheet as $character)
             <div class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #fefcff;">
                 <div>
-                    <h5 class="mb-1" style="color: #003366;">{{ $character->charname ?? "Unnamed" }}</h5>
+                    <h5 class="mb-1" style="color: #0056b3;">{{ $character->charname ?? "Unnamed" }}</h5> <!-- Cambiato il colore -->
                     <small>Last modified: {{ $character->updated_at->format('d/m/Y H:i') }}</small>
                 </div>
                 <div class="d-flex justify-content-end mb-3">
                     @if($character->user_id == Auth::user()->id)
                     <button class="btn btn-info btn-sm mr-1 material-icons" type="button" data-id="{{ $character->id }}" data-toggle="modal" data-target="#shareModal">share</button>
-                    <a href="{{ route('characters.edit', $character) }}" class="btn btn-warning btn-sm mr-1 material-icons">edit</a>
+                    <a href="{{ route('characters.edit', $character) }}" class="btn btn-success btn-sm mr-1 material-icons">edit</a> <!-- Cambiato il colore -->
                     @else
-                    <a href="{{ route('characters.view', $character) }}" class="btn btn-warning btn-sm mr-1 material-icons">visibility</a>
+                    <a href="{{ route('characters.view', $character) }}" class="btn btn-success btn-sm mr-1 material-icons">visibility</a> <!-- Cambiato il colore -->
                     @endif
                     <a href="{{ route('characters.show', $character) }}" class="btn btn-info btn-sm mr-1 material-icons">download</a>
                     <form action="{{ route('characters.destroy', $character) }}" 
                         method="DELETE" 
-                        style="display ```blade
-                        :inline;"
+                        style="display: inline;"
                         onsubmit="return confirm('Are you sure you want to delete this character?');">
                         <button type="submit" class="btn btn-danger btn-sm material-icons">delete</button>
                     </form>
@@ -40,7 +39,7 @@
     </div>
 
     @if($sheet->isEmpty())
-        <div class="alert alert-warning mt-4" role="alert">
+        <div class="alert alert-info mt-4" role="alert"> <!-- Cambiato il colore -->
             You haven't created any characters yet.
         </div>
     @endif

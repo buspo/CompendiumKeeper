@@ -4,24 +4,24 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-info text-white">{{ __('Verify Your Email Address') }}</div>
+    <h1 class="my-4" style="color: #0056b3;">Verify Your Email Address</h1> <!-- Colore uniforme -->
 
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
-                    @endif
-
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
+    <div class="card mb-4" style="background-color: #ffffff; border: 1px solid #0056b3;"> <!-- Sfondo e bordo uniforme -->
+        <div class="card-body">
+            @if (session('resent'))
+                <div class="alert alert-info" role="alert"> <!-- Cambiato il colore -->
+                    A new verification link has been sent to your email address.
                 </div>
-            </div>
+            @endif
+
+            <p>Please check your email for a verification link before continuing.</p>
+            <p>If you did not receive the email,</p>
+            <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                @csrf
+                <button type="submit" class="btn btn-success">click here to request another</button> <!-- Cambiato il colore -->
+            </form>
+        </div>
+    </div>
         </div>
     </div>
 </div>
