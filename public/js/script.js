@@ -1,3 +1,6 @@
+var interval;
+var ask = true;
+
 $('.stat').bind('input', function () {
   var inputName = $(this).attr('name')
   var mod = parseInt($(this).val()) - 10
@@ -28,7 +31,7 @@ $("[name='classlevel']").bind('input', function () {
   var classes = $(this).val()
   var r = new RegExp(/\d+/g)
   var total = 0
-  dataType: dataType
+  //dataType: dataType
   while ((result = r.exec(classes)) != null) {
     var lvl = parseInt(result)
     if (!isNaN(lvl))
@@ -237,3 +240,110 @@ function calc_carry_weight() {
   }
   document.getElementById("weightcarried").value = parseInt(total + 0.5);
 }
+
+function loadData(data) {
+  var savedData = JSON.parse(data);
+
+  while (rows_attacks > parseInt(savedData.rows_attacks)) {
+    remove_last_row('attacktable');
+  }
+  while (rows_attacks < parseInt(savedData.rows_attacks)) {
+    add_attack();
+  }
+
+  while (rows_attunements > parseInt(savedData.rows_attunements)) {
+    remove_last_row('attunementtable');
+  }
+  while (rows_attunements < parseInt(savedData.rows_attunements)) {
+    add_attunement();
+  }
+
+  while (rows_inventory > parseInt(savedData.rows_inventory)) {
+    remove_last_row('inventorytable');
+  }
+  while (rows_inventory < parseInt(savedData.rows_inventory)) {
+    add_inventory();
+  }
+
+  while (rows_spells > parseInt(savedData.rows_spells)) {
+    remove_last_row('spelltable');
+  }
+  while (rows_spells < parseInt(savedData.rows_spells)) {
+    add_spell();
+  }
+
+  // Prepare form data for JSON format
+  const formId = "charsheet";
+  var url = location.href;
+  const formIdentifier = `${url} ${formId}`;
+  var form = document.querySelector(`#${formId}`);
+  var formElements = form.elements;
+
+  // Display file content
+  savedData = JSON.parse(data); // get and parse the saved data from localStorage
+  for (const element of formElements) {
+    if (element.name in savedData) {
+      if (element.type == 'checkbox') {
+        var checked = (savedData[element.name] == 'checked');
+        $("[name='" + element.name + "']").prop("checked", checked)
+      } else {
+        element.value = savedData[element.name];
+      }
+    }
+  }
+}
+
+// Salva i dati nel localStorage periodicamente
+function autoSave() {
+  const formId = "charsheet";
+  var url = location.href;
+  const formIdentifier = `${url} ${formId}`;
+  var form = document.querySelector(`#${formId}`);
+  var formElements = form.elements;
+
+  var data = { [formIdentifier]: {} };
+  for (const element of formElements) {
+    if (element.name.length > 0) {
+      if (element.type == 'checkbox') {
+        var checked = ($("[name='" + element.name + "']").prop("checked") ? 'checked' : 'unchecked');
+        data[formIdentifier][element.name] = checked;
+      } else {
+        data[formIdentifier][element.name] = element.value;
+      }
+    }
+  }
+  const sheetData = data[formIdentifier]; // Funzione che raccoglie tutti i dati della scheda
+  localStorage.setItem("dnd_sheet_backup_" + $("#ch_id").val(), JSON.stringify(sheetData, null, 2));
+}
+
+// Recupera i dati quando la pagina viene ricaricata
+function restoreStorage(data) {
+  const savedData = localStorage.getItem("dnd_sheet_backup_" + $("#ch_id").val());
+  console.log("entro");
+  console.log(savedData);
+  console.log(savedData != data);
+  if (savedData && savedData != data) {
+    // Chiedi all'utente se vuole recuperare i dati non salvati
+    if (confirm('Sono stati trovati dati non salvati. Vuoi recuperarli?')) {
+      loadData(savedData);
+    }
+    localStorage.removeItem("dnd_sheet_backup_" + $("#ch_id").val());
+  }
+}
+
+function closeSheet() {
+  if (confirm('Are you sure you want to leave? If you have unsaved changes you will lose them')) {
+    clearInterval(interval);
+    //localStorage.removeItem("dnd_sheet_backup_" + $("#ch_id").val());
+    ask = false;
+    location.href = '/characters';
+  }
+}
+
+$(window).on('beforeunload', function () {
+  if (ask) { return ('Are you sure you want to leave?'); }
+});
+
+$(document).ready(function () {
+  interval = setInterval(autoSave, 10000);
+});

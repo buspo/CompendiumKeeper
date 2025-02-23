@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow-sm mb-4" style="background-color: #fefcff;">
+            <!--<div class="card shadow-sm mb-4" style="background-color: #fefcff;">
                 <div class="card-header bg-primary text-white">{{ __('Dashboard') }}</div>
                 <div class="card-body">
                     @if (session('status'))
@@ -11,13 +11,13 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    {{ __('Welcome '.auth()->user()->name.'. You are logged in!') }}
+                    {{ __('Welcome '.auth()->user()->username.'. You are logged in!') }}
                     <div class="text-center">
                         <a href="{{ route('users.edit') }}" class="btn btn-info">Manage account</a>
                     </div>
 
                 </div>
-            </div>
+            </div>-->
             <div class="card shadow-sm mb-4" style="background-color: #fefcff;">
                 <div class="card-header bg-info text-white">{{ __('Characters') }}</div>
                 <div class="card-body">

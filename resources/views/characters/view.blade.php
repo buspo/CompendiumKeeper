@@ -5,15 +5,6 @@
 @section('content')
 <!-- partial:index.partial.html -->
 <form class="charsheet" id="charsheet" enctype="multipart/form-data">
-<input type="hidden" id="ch_id" value="{{$id}}"/>
-  <header>
-    <section>
-        <button name="buttonsave" type="button" onClick="save_character()" style="width:100px;margin-bottom:5px;margin-right:245px;">Save character</button>
-        <button name="buttonrest" type="button" onClick="long_rest()" style="width:100px;,margin-bottom:5px;margin-right:245px;">Long Rest</button>
-        <button id="buttonclose" name="buttonclose" type="button" onClick="closeSheet();" style="width:100px;margin-bottom:5px;">Close</button>
-        <!--<label for="autosave" style="text-transform:Capitalize;font-weight:bold;padding:0px 10px;">Autosave?</label><input name="autosave" id="autosave" type="checkbox" />-->
-    </section>
-  </header>
   <header>
     <section class="charname">
       <label for="charname">Character Name</label><input name="charname" id="charname" placeholder="Character Name" />
@@ -362,10 +353,6 @@
                 </tr>
               </tbody>
             </table>
-            <span>
-              <button name="button-addattack" type="button" onclick="add_attack()" style="width:20%;">Add New Attack</button>
-              <button name="button-removeattack" type="button" onclick="remove_last_row('attacktable')" style="width:20%;">Remove Attack</button>
-            </span>
             <textarea name="attacksnotes">=== ACTIONS&#013;&#010;&#013;&#010;=== BONUS ACTIONS&#013;&#010;&#013;&#010;=== REACTIONS&#013;&#010;&#013;&#010;=== LIMITED USE</textarea>
           </div>
       </section>
@@ -553,10 +540,6 @@
             </tr>
           </tbody>
         </table>
-        <span>
-          <button name="button-addspell" type="button" onclick="add_spell()" style="width:20%;">Add New Spell</button>
-          <button name="button-removespell" type="button" onclick="remove_last_row('spelltable')" style="width:20%;">Remove Spell</button>
-        </span>
         <textarea name="spellsnotes" placeholder="Additional spell notes"></textarea>
       </div>
     </section>
@@ -630,10 +613,6 @@
               <tr><td><input name="attunement2" type="text" /></td></tr>
             </tbody>
           </table>
-          <span>
-            <button name="button-addattunement" type="button" onclick="add_attunement()" style="width:45%;">Add Attunement Slot</button>
-            <button name="button-removeattunement" type="button" onclick="remove_last_row('attunementtable')" style="width:45%;">Remove Attunement Slot</button>
-          </span>
           <textarea name="attunementsnotes" placeholder="Additional attunement notes"></textarea>
         </div>
       </section>
@@ -709,10 +688,6 @@
                 </tr>
               </tbody>
             </table>
-            <span>
-              <button name="button-additem" type="button" onclick="add_inventory()" style="width:20%;">Add New Item</button>
-              <button name="button-removeitem" type="button" onclick="remove_last_row('inventorytable');calc_carry_weight();" style="width:20%;">Remove Item</button>
-            </span>
             <textarea name="inventorynotes" placeholder="Additional inventory notes"></textarea>
           </div>
       </section>
@@ -836,43 +811,9 @@ $(document).ready(function(){
   var contents = [].concat(@json($sheet));
 
   loadData(contents);
-  restoreStorage(contents);
+  clearInterval(interval);
+  ask = false;
+  $('input, textarea').prop('disabled', true);
 });
-function save_character() {
-  console.log("Saving character...")
-
-  // Prepare form data for JSON format
-  const formId = "charsheet";
-  var url = location.href;
-  const formIdentifier = `${url} ${formId}`;
-  let form = document.querySelector(`#${formId}`);
-  let formElements = form.elements;
-
-  let data = { [formIdentifier]: {} };
-  for (const element of formElements) {
-    if (element.name.length > 0) {
-      if (element.type == 'checkbox') {
-        var checked = ($("[name='" + element.name + "']").prop("checked") ? 'checked' : 'unchecked');
-        data[formIdentifier][element.name] = checked;
-      } else {
-        data[formIdentifier][element.name] = element.value;
-      }
-    }
-  }
-  data = JSON.stringify(data[formIdentifier], null, 2)
-  $.ajax({
-    type: "PUT",
-    url: "/characters/{{ $id }}",
-    data: { 
-      "_token": "{{ csrf_token() }}",
-      "sheet": data,
-      "charname": document.getElementById('charname').value
-    },
-    success: function (data) {
-      localStorage.removeItem('dnd_sheet_backup');
-      alert(data["message"]);
-    }
-  });
-}
 </script>
 @endsection

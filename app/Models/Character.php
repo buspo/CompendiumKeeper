@@ -16,8 +16,12 @@ class Character extends Model
         'charname',
     ];
 
-    public function user()
+    public function owner()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'users_characters', 'character_id', 'user_id');
     }
 }

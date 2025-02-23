@@ -15,7 +15,7 @@
     Source: <a href="https://www.reddit.com/r/DnD/comments/fvxsgj/5e_html_character_sheet_for_5e_with_basic/">post on reddit</a>
     </footer>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-    @yield('script')
     <script src="{{ asset('js/script.js') }}"></script>
+    @yield('script')
 </body>
 </html>
