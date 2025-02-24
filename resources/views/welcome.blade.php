@@ -4,16 +4,16 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="text-center mb-4" style="background-color: #0056b3; padding: 20px; border-radius: 8px;"> <!-- Cambiato il colore -->
+            <div class="text-center mb-4" style="background-color: #0056b3; padding: 20px; border-radius: 8px;">
                 <img src="{{ asset('CompendiumKeeper.png') }}" alt="Logo" class="img-fluid" style="max-width: 50%; height: auto;">
             </div>
             <div class="card shadow-sm mb-4" style="background-color: #fefcff;">
                 <div class="card-body">
-                    <h5 cclass="card-title" style="color: #0056b3;">Access</H5>
+                    <h5 class="card-title  title-blue">Access</H5>
                     @guest
                         <p>If you are not registered yet, you can do so here:</p>
                         <div class="text-center">
-                            <a href="{{ route('register') }}" class="btn btn-success">Register</a> <!-- Cambiato il colore -->
+                            <a href="{{ route('register') }}" class="btn btn-blue">Register</a>
                         </div>
                     @else
                         <p>You are already logged in as {{ Auth::user()->username }}.</p>
@@ -25,7 +25,7 @@
             </div>
             <div class="card shadow-sm mb-4" style="background-color: #fefcff;">
                 <div class="card-body">
-                    <h5 cclass="card-title" style="color: #0056b3;">Credits</H5>
+                    <h5 class="card-title  title-blue">Credits</H5>
                     <p>This character sheet was created using a template shared by various Reddit users. Special thanks to:</p>
                     <ul>
                         <li>u/BackFromOtterSpace</li>

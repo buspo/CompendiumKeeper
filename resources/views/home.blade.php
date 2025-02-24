@@ -4,31 +4,31 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-    <!--<h1 class="my-4" style="color: #0056b3;">Welcome to the Character Sheet</h1> <!-- Cambiato il colore -->
+    <!--<h1 class="my-4" style="color: #0056b3;">Welcome to the Character Sheet</h1 > -->
 
     <div class="card mb-4" style="background-color: #fefcff;">
         <div class="card-body">
-            <h5 class="card-title" style="color: #0056b3;">Your Characters</h5> <!-- Cambiato il colore -->
+            <h5 class="card-title  title-blue">Your Characters</h5 >
             <p class="card-text">Here you can manage your characters.</p>
             <div class="text-center">
-            <a href="{{ route('characters.index') }}" class="btn btn-info">View Characters</a>
-            </div> <!-- Cambiato il colore -->
+            <a href="{{ route('characters.index') }}" class="btn btn-blue">View Characters</a>
+            </div >
         </div>
     </div>
 
     <div class="card mb-4" style="background-color: #fefcff;">
         <div class="card-body">
-            <h5 class="card-title" style="color: #0056b3;">Create a New Character</h5> <!-- Cambiato il colore -->
+            <h5 class="card-title  title-blue">Create a New Character</h5 >
             <p class="card-text">Start your adventure by creating a new character.</p>
             <div class="text-center">
-            <a href="{{ route('characters.create') }}" class="btn btn-success">Create Character</a> <!-- Cambiato il colore -->
+            <a href="{{ route('characters.create') }}" class="btn btn-blue">Create Character</a >
             </div>
         </div>
     </div>
 
     <div class="card mb-4" style="background-color: #fefcff;">
         <div class="card-body">
-            <h5 class="card-title" style="color: #0056b3;">Credits</h5> <!-- Cambiato il colore -->
+            <h5 class="card-title  title-blue">Credits</h5 >
             <p>This character sheet was created using a template shared by various Reddit users. Special thanks to:</p>
             <ul>
                 <li>u/BackFromOtterSpace</li>

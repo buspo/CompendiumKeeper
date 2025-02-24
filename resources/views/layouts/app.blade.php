@@ -8,27 +8,58 @@
     <title>Compendium Keeper</title>
     <style>
         body {
-            background-color: #f8f9fa; /* Colore di sfondo */
+            background-color: #f8f9fa;
         }
         .navbar {
-            background-color: #0056b3; /* Colore navbar */
+            background-color: #0056b3;
         }
         .navbar-brand img {
             max-height: 40px;
         }
         .btn-success {
-            background-color: #28a745; /* Colore pulsante success */
+            background-color: #28a745;
         }
         .btn-info {
-            background-color: #007bff; /* Colore pulsante info */
+            background-color: #007bff;
         }
-        .alert-success {
-            background-color: #d4edda; /* Colore alert success */
-            color: #155724;
+        .btn-blue {
+            background-color: #003366;
+            color: white;
         }
-        .alert-danger {
-            background-color: #cce5ff; /* Colore alert danger */
-            color: #0056b3;
+        .btn-blue:hover, .btn-blue:focus, .btn-blue:active, .btn-blue.active, .open>.dropdown-toggle.btn-blue {
+            color: #fff;
+            background-color:rgba(0, 51, 102, 0.7);
+            border-color:rgba(0, 51, 102, 0.3);
+        }
+        .title-blue {
+            color: #003366;
+        }
+        .btn-blue-1 {
+            background-color: #0D47A1;
+            color: white;
+        }
+        .btn-blue-1:hover, .btn-blue-1:focus, .btn-blue-1:active, .btn-blue-1.active, .open>.dropdown-toggle.btn-blue-1 {
+            color: #fff;
+            background-color:rgba(13, 72, 161, 0.7);
+            border-color:rgba(13, 72, 161, 0.3);
+        }
+        .btn-blue-2 {
+            background-color: #1976D2;
+            color: white;
+        }
+        .btn-blue-2:hover, .btn-blue-2:focus, .btn-blue-2:active, .btn-blue-2.active, .open>.dropdown-toggle.btn-blue-2 {
+            color: #fff;
+            background-color:rgba(25, 118, 210, 0.7);
+            border-color:rgba(25, 118, 210, 0.3);
+        }
+        .btn-blue-3 {
+            background-color: #2196F3;
+            color: white;
+        }
+        .btn-blue-3:hover, .btn-blue-3:focus, .btn-blue-3:active, .btn-blue-3.active, .open>.dropdown-toggle.btn-blue-3 {
+            color: #fff;
+            background-color:rgba(33, 149, 243, 0.7);
+            border-color:rgba(33, 149, 243, 0.3);
         }
     </style>
 </head>

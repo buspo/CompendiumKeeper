@@ -156,8 +156,8 @@ class CharacterController extends Controller
         if ($character->user_id !== Auth::user()->id){
             abort(403); // Accesso negato
         }
-        if ($existingUser == Auth::user){
-            response()->json(['error' => 'Non puoi condividere schede con te stesso']);
+        if ($existingUser->id == Auth::user()->id){
+            return response()->json(['error' => 'Non puoi condividere schede con te stesso']);
         }
 
         UserCharacter::create([

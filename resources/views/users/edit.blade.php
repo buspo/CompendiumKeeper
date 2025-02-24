@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-    <h1 class="my-4" style="color: #0056b3;">User  Profile</h1> <!-- Cambiato il colore -->
+    <h1 class="my-4" style="color: #0056b3;">User  Profile</h1 >
 
     @if(session('success'))
-        <div class="alert alert-info">{{ session('success') }}</div> <!-- Cambiato il colore -->
+        <div class="alert alert-info">{{ session('success') }}</div >
     @endif
 
     @if($errors->any())
@@ -44,7 +44,7 @@
                     <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Re-enter new password">
                 </div>
 
-                <button type="submit" class="btn btn-success">Update Profile</button> <!-- Cambiato il colore -->
+                <button type="submit" class="btn btn-blue">Update Profile</button >
             </form>
 
             <form method="POST" action="{{ route('users.destroy') }}" onsubmit="return confirm('Are you sure you want to delete your account?');" class="mt-4">
