@@ -13,7 +13,7 @@
 
                         <div class="form-group">
                             <label for="username" style="color: #0056b3;">Username</label>
-                            <input id="username" type="text" value="{{ $username ?? old('username') }}}" class="form-control @error('username') is-invalid @enderror" name="username" required autofocus>
+                            <input id="username" type="text" value="{{ $username ?? old('username') }}" class="form-control @error('username') is-invalid @enderror" name="username" required autofocus>
                             @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
