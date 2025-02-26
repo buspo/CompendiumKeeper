@@ -1,24 +1,101 @@
 var interval;
 var ask = true;
 
+$(window).on('beforeunload', function () {
+  if (ask) { return ('Are you sure you want to leave?'); }
+});
+
+$(document).ready(function () {
+  interval = setInterval(autoSave, 10000);
+});
+
+$('#autocomplete').change(function () {
+  if ($(this).is(':checked')) {
+    $('.stat').trigger("input");
+  }
+});
+
 $('.stat').bind('input', function () {
-  var inputName = $(this).attr('name')
-  var mod = parseInt($(this).val()) - 10
+  if ($('#autocomplete').is(':checked')) {
+    var inputName = $(this).attr('name')
+    var mod = parseInt($(this).val()) - 10
 
-  if (mod % 2 == 0)
-    mod = mod / 2
-  else
-    mod = (mod - 1) / 2
+    if (mod % 2 == 0)
+      mod = mod / 2
+    else
+      mod = (mod - 1) / 2
 
-  if (isNaN(mod))
-    mod = ""
-  else if (mod >= 0)
-    mod = "+" + mod
+    if (isNaN(mod))
+      mod = ""
+    else if (mod >= 0)
+      mod = "+" + mod
 
-  var scoreName = inputName.slice(0, inputName.indexOf("score"))
-  var modName = scoreName + "mod"
+    var scoreName = inputName.slice(0, inputName.indexOf("score"))
+    var modName = scoreName + "mod"
 
-  $("[name='" + modName + "']").val(mod)
+    $("[name='" + modName + "']").val(mod);
+    $("[name='" + scoreName + "-save']").val(parseInt(mod) + parseInt($("[name='" + scoreName + "-save-prof']").is(":checked") ? $("[name='proficiencybonus']").val() : 0));
+    skill = [];
+    switch (scoreName) {
+      case "Strength":
+        skill = ["Athletics"];
+        break;
+      case "Dexterity":
+        skill = ["Acrobatics", "Sleight of Hand", "Stealth"];
+        break;
+      case "Intelligence":
+        skill = ["Arcana", "History", "Investigation", "Nature", "Religion"];
+        break;
+      case "Wisdom":
+        skill = ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"];
+        break;
+      case "Charisma":
+        skill = ["Deception", "Intimidation", "Performance", "Persuasion"];
+        break;
+    }
+    skill.forEach(element => {
+      setSkills(element, mod);
+    });
+  }
+})
+
+$('.prof-check').change(function () {
+  if ($('#autocomplete').is(':checked')) {
+    var inputName = $(this).attr('name')
+    var name = inputName.slice(0, inputName.lastIndexOf("-prof"))
+    var mod = parseInt($("[name='" + $(this).prop('classList')[0] + "score']").val()) - 10
+
+    if (mod % 2 == 0)
+      mod = mod / 2
+    else
+      mod = (mod - 1) / 2
+
+    if (isNaN(mod))
+      mod = ""
+    else if (mod >= 0)
+      mod = "+" + mod
+    setSkills(name, mod);
+  }
+})
+
+$("[name='proficiencybonus']").bind('input', function () {
+  if ($('#autocomplete').is(':checked')) {
+    $('.skill-input').each(function () {
+      var mod = parseInt($("[name='" + $(this).prop('classList')[0] + "score']").val()) - 10
+
+      if (mod % 2 == 0)
+        mod = mod / 2
+      else
+        mod = (mod - 1) / 2
+
+      if (isNaN(mod))
+        mod = ""
+      else if (mod >= 0)
+        mod = "+" + mod
+
+      setSkills($(this).attr('name'), mod);
+    });
+  }
 })
 
 $('.statmod').bind('change', function () {
@@ -28,26 +105,32 @@ $('.statmod').bind('change', function () {
 })
 
 $("[name='classlevel']").bind('input', function () {
-  var classes = $(this).val()
-  var r = new RegExp(/\d+/g)
-  var total = 0
-  //dataType: dataType
-  while ((result = r.exec(classes)) != null) {
-    var lvl = parseInt(result)
-    if (!isNaN(lvl))
-      total += lvl
+  if ($('#autocomplete').is(':checked')) {
+    var classes = $(this).val()
+    var r = new RegExp(/\d+/g)
+    var total = 0
+    //dataType: dataType
+    while ((result = r.exec(classes)) != null) {
+      var lvl = parseInt(result)
+      if (!isNaN(lvl))
+        total += lvl
+    }
+    var prof = 2
+    if (total > 0) {
+      total -= 1
+      prof += Math.trunc(total / 4)
+      prof = "+" + prof
+    }
+    else {
+      prof = ""
+    }
+    $("[name='proficiencybonus']").val(prof).trigger('input')
   }
-  var prof = 2
-  if (total > 0) {
-    total -= 1
-    prof += Math.trunc(total / 4)
-    prof = "+" + prof
-  }
-  else {
-    prof = ""
-  }
-  $("[name='proficiencybonus']").val(prof)
 })
+
+function setSkills(skillName, mod) {
+  $("[name='" + skillName + "']").val(parseInt(mod) + parseInt($("[name='" + skillName + "-prof']").is(":checked") ? $("[name='proficiencybonus']").val() : 0));
+}
 
 function totalhd_clicked() {
   $("[name='remaininghd']").val($("[name='totalhd']").val())
@@ -314,17 +397,18 @@ function autoSave() {
   }
   const sheetData = data[formIdentifier]; // Funzione che raccoglie tutti i dati della scheda
   localStorage.setItem("dnd_sheet_backup_" + $("#ch_id").val(), JSON.stringify(sheetData, null, 2));
+  console.log("Data saved in local");
 }
 
 // Recupera i dati quando la pagina viene ricaricata
 function restoreStorage(data) {
   const savedData = localStorage.getItem("dnd_sheet_backup_" + $("#ch_id").val());
-  console.log("entro");
-  console.log(savedData);
-  console.log(savedData != data);
+  //console.log("entro");
+  //console.log(savedData);
+  //console.log(savedData != data);
   if (savedData && savedData != data) {
     // Chiedi all'utente se vuole recuperare i dati non salvati
-    if (confirm('Sono stati trovati dati non salvati. Vuoi recuperarli?')) {
+    if (confirm('Unsaved data found. Do you want to recover it?')) {
       loadData(savedData);
     }
     localStorage.removeItem("dnd_sheet_backup_" + $("#ch_id").val());
@@ -339,11 +423,3 @@ function closeSheet() {
     location.href = '/characters';
   }
 }
-
-$(window).on('beforeunload', function () {
-  if (ask) { return ('Are you sure you want to leave?'); }
-});
-
-$(document).ready(function () {
-  interval = setInterval(autoSave, 10000);
-});

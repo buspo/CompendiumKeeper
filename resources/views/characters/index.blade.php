@@ -170,13 +170,13 @@ function loadSharedUsers(characterId) {
             });
         },
         error: function(error) {
-            alert("Errore nel caricamento degli utenti");
+            alert("Error loading users");
         }
     });
 }
 
 function removeShare(userId, characterId) {
-    if (!confirm('Sei sicuro di voler rimuovere questa condivisione?')) {
+    if (!confirm('Are you sure you want to remove this share?')) {
         console.log("esco");
         return;
     }
@@ -194,7 +194,7 @@ function removeShare(userId, characterId) {
             alert(response.message);
         },
         error: function(error) {
-            alert("Errore nella rimozione della condivisione");
+            alert("Error removing sharing");
         }
     });
 }

@@ -45,7 +45,7 @@ class CharacterController extends Controller
         // Crea il personaggio senza salvare il file
         $character = Character::create($input);
 
-        return response()->json(['message' => 'Personaggio creato con successo.', 'id' => $character->id]);
+        return response()->json(['message' => 'Character sheet successfully created', 'id' => $character->id]);
     }
 
     /**
@@ -99,7 +99,7 @@ class CharacterController extends Controller
         // Aggiorna il record del personaggio con il nome del file
         $character->update($input);
 
-        return response()->json(['message' => 'Scheda personaggio salvata con successo.']);
+        return response()->json(['message' => 'Character sheet saved successfully']);
     }
 
     /**
@@ -133,7 +133,7 @@ class CharacterController extends Controller
         // Aggiorna il record del personaggio con il nome del file
         $character = Character::create($input);
 
-        return response()->json(['message' => 'Scheda personaggio creata con successo.']);
+        return response()->json(['message' => 'Character sheet created successfully']);
     }
 
     public function view(Character $character)
@@ -157,14 +157,14 @@ class CharacterController extends Controller
             abort(403); // Accesso negato
         }
         if ($existingUser->id == Auth::user()->id){
-            return response()->json(['error' => 'Non puoi condividere schede con te stesso']);
+            return response()->json(['error' => 'You can\'t share cards with yourself']);
         }
 
         UserCharacter::create([
             'user_id' => $existingUser->id,
             'character_id' => $character->id
         ]);
-        return response()->json(['message' => 'Scheda personaggio condivisa con successo.']);
+        return response()->json(['message' => 'Character sheet shared successfully']);
     }
 
     public function getSharedUsers(Character $character)
@@ -194,6 +194,6 @@ class CharacterController extends Controller
             ->where('character_id', $request->character_id)
             ->delete();
         
-        return response()->json(['message' => 'Condivisione rimossa con successo']);
+        return response()->json(['message' => 'Sharing successfully removed']);
     }
 }
