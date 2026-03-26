@@ -35,6 +35,9 @@ services:
     env_file:
       # Load the environment variables from the Laravel application
       - .env
+    environment:
+      APP_DEBUG: "true"
+      APP_ENV: local
     user: "${UID:-1000}:${GID:-1000}"
     volumes:
       # Mount the application code for live updates
