@@ -196,4 +196,65 @@ class CharacterController extends Controller
         
         return response()->json(['message' => 'Sharing successfully removed']);
     }
+
+    public function view(Character $character)
+    {
+        if ($character->user_id !== Auth::user()->id && !$character->users->contains(Auth::user())) {
+            abort(403); // Accesso negato
+        }
+        return view('characters.view', ['sheet' => $character->sheet, 'id' => $character->id]);
+    }
+
+    public function share(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|max:255|exists:users',
+            'character_id' => 'required|exists:characters,id'
+        ]);
+        $existingUser = User::firstWhere('username', $request->username);
+        $character = Character::find($request->character_id);
+        
+        if ($character->user_id !== Auth::user()->id){
+            abort(403); // Accesso negato
+        }
+        if ($existingUser == Auth::user){
+            response()->json(['error' => 'Non puoi condividere schede con te stesso']);
+        }
+
+        UserCharacter::create([
+            'user_id' => $existingUser->id,
+            'character_id' => $character->id
+        ]);
+        return response()->json(['message' => 'Scheda personaggio condivisa con successo.']);
+    }
+
+    public function getSharedUsers(Character $character)
+    {
+        if ($character->user_id !== Auth::user()->id) {
+            abort(403);
+        }
+    
+        $sharedUsers = $character->users()->select('username', 'users.id')->get();
+        return response()->json($sharedUsers);
+    }
+
+    public function removeShare(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'character_id' => 'required|exists:characters,id'
+        ]);
+    
+        $character = Character::find($request->character_id);
+    
+        if ($character->user_id !== Auth::user()->id) {
+            abort(403);
+        }
+    
+        UserCharacter::where('user_id', $request->user_id)
+            ->where('character_id', $request->character_id)
+            ->delete();
+        
+        return response()->json(['message' => 'Condivisione rimossa con successo']);
+    }
 }
