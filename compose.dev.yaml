@@ -10,7 +10,7 @@ services:
       # Map port 80 inside the container to the port specified by 'NGINX_PORT' on the host machine
       - "8001:80"
     environment:
-      - NGINX_HOST=localhost
+      - NGINX_HOST=main.lan
     networks:
       - laravel-development
     depends_on:
@@ -42,8 +42,8 @@ services:
     networks:
       - laravel-development
     depends_on:
-      postgres:
-        condition: service_started  # Wait for postgres to start
+      mariadb:
+        condition: service_started  # Wait for mariadb to start
 
   workspace:
    # For the workspace service, we will also create a custom image to install and setup all the necessary stuff.
