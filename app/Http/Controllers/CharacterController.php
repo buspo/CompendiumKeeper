@@ -8,6 +8,8 @@ use App\Models\UserCharacter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 
 class CharacterController extends Controller
 {
@@ -196,4 +198,20 @@ class CharacterController extends Controller
         
         return response()->json(['message' => 'Sharing successfully removed']);
     }
+
+    /**
+ * Export character sheet as PDF.
+ */
+public function exportPdf(Character $character)
+{
+    if ($character->user_id !== Auth::user()->id && !$character->users->contains(Auth::user())) {
+        abort(403);
+    }
+
+    $data = json_decode($character->sheet, true);
+
+    $pdf = Pdf::loadView('characters.pdf', ['data' => $data]);
+    $pdf->setPaper('A4', 'portrait');
+    return $pdf->download('character_sheet_'.$character->id.'.pdf');
+}
 }
