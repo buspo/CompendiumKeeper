@@ -16,8 +16,12 @@
         @foreach($sheet as $character)
             <div class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #fefcff;">
                 <div>
-                    <h5 class="mb-1" style="color: #0056b3;">{{ $character->charname ?? "Unnamed" }}</h5 >
+                    @if($character->user_id == Auth::user()->id)
+                    <h5 class="mb-1" style="color: #0056b3;"><a href="{{ route('characters.edit', $character) }}">{{ $character->charname ?? "Unnamed" }}</a></h5 >
                     <small>Last modified: {{ $character->updated_at->format('d/m/Y H:i') }}</small>
+                    @else
+                    <h5 class="mb-1" style="color: #0056b3;"><a href="{{ route('characters.show', $character) }}">{{ $character->charname ?? "Unnamed" }}</a></h5 >
+                    @endif
                 </div>
                 <div class="d-flex justify-content-end mb-3">
                     @if($character->user_id == Auth::user()->id)
@@ -27,6 +31,7 @@
                     <a href="{{ route('characters.view', $character) }}" class="btn btn-blue-1 btn-sm mr-1 material-icons">visibility</a >
                     @endif
                     <a href="{{ route('characters.show', $character) }}" class="btn btn-blue-2 btn-sm mr-1 material-icons">download</a>
+                    <a href="{{ route('characters.exportPdf', $character) }}" class="btn btn-blue-3 btn-sm mr-1 material-icons">picture_as_pdf</a>
                     <form action="{{ route('characters.destroy', $character) }}" 
                         method="DELETE" 
                         style="display: inline;"
